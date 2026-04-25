@@ -2,7 +2,7 @@ name: CI — Main Branch
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, staging]
 
 concurrency:
   group: ci-main-${{ github.ref }}

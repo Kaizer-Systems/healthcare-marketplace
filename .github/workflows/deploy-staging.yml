@@ -2,7 +2,7 @@ name: Deploy — Staging
 
 on:
   push:
-    branches: [develop]
+    branches: [staging]
   workflow_dispatch:
 
 concurrency:
@@ -16,6 +16,8 @@ jobs:
       droplet-type: backend
       image-tag: ${{ github.sha }}
       compose-file: docker-compose.backend.yml
+      environment-name: staging
+      environment-url: https://staging-api.yourdomain.com
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       DROPLET_IP: ${{ secrets.BACKEND_DROPLET_IP }}
@@ -28,6 +30,8 @@ jobs:
       droplet-type: frontend
       image-tag: ${{ github.sha }}
       compose-file: docker-compose.frontend.yml
+      environment-name: staging
+      environment-url: https://staging-marketplace.yourdomain.com
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       DROPLET_IP: ${{ secrets.FRONTEND_DROPLET_IP }}

@@ -2,12 +2,13 @@ name: Deploy — Production
 
 on:
   push:
+    branches: [main]
     tags:
       - 'v*.*.*'
   workflow_dispatch:
     inputs:
       image-tag:
-        description: Image tag to deploy (defaults to tag or latest)
+        description: Image tag to deploy (defaults to commit SHA or tag name)
         required: false
 
 concurrency:
@@ -19,8 +20,10 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yml
     with:
       droplet-type: backend
-      image-tag: ${{ github.event.inputs.image-tag || github.ref_name }}
+      image-tag: ${{ github.event.inputs.image-tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
       compose-file: docker-compose.backend.yml
+      environment-name: production
+      environment-url: https://api.yourdomain.com
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       DROPLET_IP: ${{ secrets.BACKEND_DROPLET_IP }}
@@ -31,8 +34,10 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yml
     with:
       droplet-type: frontend
-      image-tag: ${{ github.event.inputs.image-tag || github.ref_name }}
+      image-tag: ${{ github.event.inputs.image-tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
       compose-file: docker-compose.frontend.yml
+      environment-name: production
+      environment-url: https://marketplace.yourdomain.com
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       DROPLET_IP: ${{ secrets.FRONTEND_DROPLET_IP }}

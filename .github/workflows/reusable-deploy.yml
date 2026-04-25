@@ -12,6 +12,14 @@ on:
       compose-file:
         type: string
         required: true
+      environment-name:
+        type: string
+        required: true
+        description: GitHub Environment to bind this deploy to (e.g. staging, production)
+      environment-url:
+        type: string
+        required: true
+        description: Public URL surfaced in the GitHub Environment view
     secrets:
       SSH_PRIVATE_KEY:
         required: true
@@ -23,6 +31,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment-name }}
+      url: ${{ inputs.environment-url }}
     steps:
       - name: Deploy to ${{ inputs.droplet-type }} droplet
         uses: appleboy/ssh-action@v1
