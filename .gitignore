@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.next/
+*.tsbuildinfo
+
+# Turbo
+.turbo/
+
+# Env (committed env files are in env/ folder)
+.env
+.env.local
+.env.*.local
+
+# Vendor theme source (read-only design donors)
+vendor/theme-source/
+
+# Local certs
+infra/certs/*.pem
+infra/certs/*.key
+infra/certs/*.crt
+
+# Coverage
+coverage/
+
+# IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+npm-debug.log*
+pnpm-debug.log*
+
+# Playwright
+test-results/
+playwright-report/
+
+# Next.js auto-generated (do not commit)
+next-env.d.ts

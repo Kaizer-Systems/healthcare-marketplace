@@ -1,0 +1,20 @@
+server {
+    listen 80;
+    server_name ${API_HOST};
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ${API_HOST};
+
+    include /etc/nginx/snippets/ssl.conf;
+    include /etc/nginx/snippets/ssl-active-api.conf;
+    include /etc/nginx/snippets/security-headers.conf;
+
+    location / {
+        proxy_pass http://api:4000;
+        include /etc/nginx/snippets/proxy-params.conf;
+    }
+}
