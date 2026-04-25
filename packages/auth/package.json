@@ -1,0 +1,21 @@
+{
+  "name": "@grip-health/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@auth/mongodb-adapter": "^3.7.0",
+    "next-auth": "^5.0.0-beta.25"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0"
+  }
+}

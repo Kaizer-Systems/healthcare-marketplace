@@ -1,0 +1,9 @@
+{
+  "name": "Grip Health Admin",
+  "short_name": "Grip Admin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "icons": []
+}

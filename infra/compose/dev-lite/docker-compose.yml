@@ -1,0 +1,5 @@
+version: "3.9"
+
+# dev-lite requires no infrastructure services.
+# All data comes from seed files. This file exists for structural completeness.
+services: {}

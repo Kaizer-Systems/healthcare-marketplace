@@ -1,0 +1,25 @@
+name: Reusable — Smoke Check
+
+on:
+  workflow_call:
+    inputs:
+      marketplace-url:
+        type: string
+        required: true
+      api-url:
+        type: string
+        required: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check marketplace health
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ inputs.marketplace-url }}/api/health)
+          if [ "$STATUS" != "200" ]; then echo "Marketplace health check failed: $STATUS" && exit 1; fi
+
+      - name: Check API health
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ inputs.api-url }}/health)
+          if [ "$STATUS" != "200" ]; then echo "API health check failed: $STATUS" && exit 1; fi

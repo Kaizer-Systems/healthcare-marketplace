@@ -1,0 +1,45 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nest start --watch",
+    "dev:lite": "dotenv -e ../../env/.env.base -e ../../env/.env.dev-lite -- nest start --watch",
+    "dev:module": "dotenv -e ../../env/.env.base -e ../../env/.env.dev-module -- nest start --watch",
+    "dev:integrated": "dotenv -e ../../env/.env.base -e ../../env/.env.dev-integrated -- nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main/main.js",
+    "start:prod": "node dist/main/main.js",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-fastify": "^11.0.0",
+    "@nestjs/config": "^4.0.0",
+    "fastify": "^5.0.0",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.0",
+    "@grip-health/config": "workspace:*",
+    "@grip-health/database": "workspace:*",
+    "@grip-health/contracts": "workspace:*",
+    "@grip-health/auth": "workspace:*",
+    "@grip-health/cache": "workspace:*",
+    "@grip-health/search": "workspace:*",
+    "@grip-health/storage": "workspace:*",
+    "@grip-health/observability": "workspace:*",
+    "@grip-health/security": "workspace:*",
+    "@grip-health/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/testing": "^11.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "dotenv-cli": "^8.0.0",
+    "vitest": "^3.0.0"
+  }
+}

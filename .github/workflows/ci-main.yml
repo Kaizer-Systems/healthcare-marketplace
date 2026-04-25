@@ -1,0 +1,22 @@
+name: CI — Main Branch
+
+on:
+  push:
+    branches: [main, staging]
+
+concurrency:
+  group: ci-main-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      run-e2e: true
+
+  build-images:
+    needs: test
+    uses: ./.github/workflows/reusable-build-images.yml
+    with:
+      image-tag: ${{ github.sha }}
+    secrets: inherit

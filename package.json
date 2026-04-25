@@ -1,0 +1,60 @@
+{
+  "name": "grip-health",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:lite": "turbo run dev:lite --filter='./apps/web/*' --filter=api",
+    "dev:module": "turbo run dev:module",
+    "dev:integrated": "turbo run dev:integrated",
+    "dev:local-prod": "echo 'Run pnpm dev:local-prod:up'",
+    "dev:local-prod:up": "docker compose -f infra/compose/local-prod/docker-compose.yml up --build",
+    "dev:local-prod:up:detached": "docker compose -f infra/compose/local-prod/docker-compose.yml up --build -d",
+    "dev:local-prod:down": "docker compose -f infra/compose/local-prod/docker-compose.yml down",
+    "dev:local-prod:logs": "docker compose -f infra/compose/local-prod/docker-compose.yml logs -f",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml}\"",
+    "db:seed": "turbo run db:seed --filter=@grip-health/database",
+    "db:seed:accounts": "turbo run db:seed:accounts --filter=@grip-health/database",
+    "infra:up:lite": "echo 'dev-lite requires no infra services'",
+    "infra:up:module": "docker compose -f infra/compose/dev-module/docker-compose.yml up -d",
+    "infra:up:integrated": "docker compose -f infra/compose/dev-integrated/docker-compose.yml up -d",
+    "infra:up:local-prod": "docker compose -f infra/compose/local-prod/docker-compose.yml up -d",
+    "infra:down": "docker compose -f infra/compose/dev-module/docker-compose.yml down 2>/dev/null; docker compose -f infra/compose/dev-integrated/docker-compose.yml down 2>/dev/null; docker compose -f infra/compose/local-prod/docker-compose.yml down 2>/dev/null",
+    "infra:certs": "bash infra/scripts/certs/generate.sh",
+    "infra:health": "bash infra/scripts/health/check-health.sh",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^15.4.0",
+    "prettier": "^3.4.0",
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}
